@@ -135,12 +135,45 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
     new G4LogicalVolume(solidCryst,            
                         cryst_mat,
                         "CrystalLV");         
-               
-  
-  //array of positions for 18 crystals
-  G4int nb_cryst = 18;
-  
-  G4ThreeVector positions[18] = {
+
+  G4double innerRad = cryst_dY;
+  G4double outerRad = 2*cryst_dY;
+  G4double height = cryst_dZ;
+  G4double startAngle = 180.*deg;
+  G4double endAngle = 180.*deg;
+
+  G4Tubs* scatCryst = new G4Tubs("scatterer",
+				 innerRad,
+				 outerRad,
+				 height,
+				 startAngle,
+				 endAngle);
+  G4LogicalVolume* logicScat = new G4LogicalVolume(scatCryst,
+						   cryst_mat,
+						   "ScatLV");
+  G4RotationMatrix* rotm  = new G4RotationMatrix();                                                      
+  //rotm->rotateX(90*deg); 
+  // rotm->rotateZ(90*deg);
+  G4ThreeVector scatPos = G4ThreeVector(-pos_dX, 0, 0);
+  new G4PVPlacement(rotm,
+		    scatPos,
+		    logicScat,
+		    "scatterer",
+		    logicWorld,
+		    false,
+		    1,
+		    checkOverlaps);				 
+
+
+  //vector of positions of the crystals                                                                                                                                                                            
+  //G4ThreeVector positions[2] = {
+  //G4ThreeVector(pos_dX,0,0),
+  //G4ThreeVector(-pos_dX,0,0)};
+             
+  /*//array of positions for 18 crystals
+    G4int nb_cryst = 18;
+ 
+    G4ThreeVector positions[18] = {
     G4ThreeVector(pos_dX,-cryst_dY,cryst_dZ),
     G4ThreeVector(pos_dX,0,cryst_dZ),
     G4ThreeVector(pos_dX,cryst_dY,cryst_dZ),
@@ -159,6 +192,7 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
     G4ThreeVector(-pos_dX,-cryst_dY,-cryst_dZ),
     G4ThreeVector(-pos_dX,0,-cryst_dZ),
     G4ThreeVector(-pos_dX,cryst_dY,-cryst_dZ)};
+  
 
   for (G4int icrys = 0; icrys < nb_cryst; icrys++) {
        new G4PVPlacement(0,                      
@@ -170,6 +204,17 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
 			 icrys,
 			 checkOverlaps);          
   }
+   */
+
+  G4ThreeVector cryspos1 = G4ThreeVector(pos_dX,0,0);
+   new G4PVPlacement(0,
+		     cryspos1,
+		     logicCryst,	     
+		     "crystal",
+		     logicWorld,
+		     false,
+		     1,
+		     checkOverlaps);
     
    //scattering disc
   
@@ -199,7 +244,7 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
 		    20,
 		    checkOverlaps);
   
-		    
+  */		    
    //Collimator
   /*
   // G4RotationMatrix* rotm  = new G4RotationMatrix();

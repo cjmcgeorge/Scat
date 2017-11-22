@@ -4,18 +4,18 @@
 
 /run/initialize
 
-#/vis/open OGL
-#/vis/drawVolume
+/vis/open OGL
+/vis/drawVolume
 
-#/control/execute pretty.mac
+/control/execute pretty.mac
 
-#/random/setSeeds 53 79
+/random/setSeeds 53 79
 
 
-#/run/beamOn 20000000
+/run/beamOn 20
 
 # 1 Bn
-/run/beamOn 1000000000
+#/run/beamOn 1000000000
 
 
 
