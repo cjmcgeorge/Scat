@@ -139,7 +139,7 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
   G4double innerRad = cryst_dY;
   G4double outerRad = 2*cryst_dY;
   G4double height = cryst_dZ;
-  G4double startAngle = 180.*deg;
+  G4double startAngle = 90.*deg;
   G4double endAngle = 180.*deg;
 
   G4Tubs* scatCryst = new G4Tubs("scatterer",
@@ -152,8 +152,7 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
 						   cryst_mat,
 						   "ScatLV");
   G4RotationMatrix* rotm  = new G4RotationMatrix();                                                      
-  //rotm->rotateX(90*deg); 
-  // rotm->rotateZ(90*deg);
+  rotm->rotateX(90*deg); 
   G4ThreeVector scatPos = G4ThreeVector(-pos_dX, 0, 0);
   new G4PVPlacement(rotm,
 		    scatPos,
@@ -218,7 +217,7 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
     
    //scattering disc
   
-  /*  G4Material* disc_mat = nist->FindOrBuildMaterial("G4_POLYETHYLENE");
+   /*    G4Material* disc_mat = nist->FindOrBuildMaterial("G4_POLYETHYLENE");
 
   G4double disc_Rmax = 4*mm;
   G4double disc_Rmin = 0*mm;
@@ -232,10 +231,10 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
 						   disc_mat,
 						   "DiscLV");
   
-  G4RotationMatrix* rotm  = new G4RotationMatrix();
+  G4RotationMatrix* rot  = new G4RotationMatrix();
   rotm->rotateY(90*deg);
 
-  new G4PVPlacement(rotm,
+  new G4PVPlacement(rot,
 		    G4ThreeVector(),
 		    logicDisc,
 		    "disc",
@@ -243,67 +242,53 @@ G4VPhysicalVolume* Tangle2DetectorConstruction::Construct()
 		    false,
 		    20,
 		    checkOverlaps);
-  
-  */		    
+   */
+  		    
    //Collimator
-  /*
   // G4RotationMatrix* rotm  = new G4RotationMatrix();
   //rotm->rotateY(90*deg);
-   
-  G4double coll_dZ = 25.25*mm;
-  G4double coll_dY = 46.*mm;
-  G4double coll_dX = 42.*mm;
 
-  G4double inner_Rmax = 2.*mm;
-  G4double inner_Rmin = 0.*mm;
+   G4double coll_dZ = 25.25*mm;
+   G4double coll_dY = 25.25*mm;
+   G4double coll_dX = 10.*mm;
 
-  G4ThreeVector pos1 = G4ThreeVector(17.625*mm, 0.*mm, 0.*mm);
-  G4ThreeVector pos2 = G4ThreeVector(-17.625*mm, 0.*mm, 0.*mm);
+   //G4double inner_Rmax = 2.*mm;                                                                         
+   //G4double inner_Rmin = 0.*mm;                                                                         
 
-  G4Material* coll_mat   = nist->FindOrBuildMaterial("lead");
- 
+   G4ThreeVector pos1 = G4ThreeVector(-pos_dX*mm, 0.*mm, 0.*mm);
+   //G4ThreeVector pos2 = G4ThreeVector(17.625*mm, 0.*mm, 0.*mm);
 
-  G4Box* outerBox = new G4Box("Outer Box",
-			      0.5*coll_dX,
-			      0.5*coll_dY,
-			      0.5*coll_dZ);
-  G4Tubs* innerCyl = new G4Tubs("inner Cyl",
-				inner_Rmin,
-				inner_Rmax,
-				0.5*coll_dX,
-				0*deg,
-				360*deg);
- 
-  
-  G4SubtractionSolid* Collimator = new G4SubtractionSolid("Collimator",
-							  outerBox,
-							  innerCyl);
+   G4Material* coll_mat   = nist->FindOrBuildMaterial("lead");
 
-  G4LogicalVolume* logicColl = new G4LogicalVolume(Collimator,
-						   //innerCyl,
-						   coll_mat,
-						   "Coll_LV");
-  
+   //Cuboid scatterer
+   G4Box* outer = new G4Box("Outer",
+			    0.5*mm,
+			    0.5*mm,
+			    0.5*mm);
 
-     new G4PVPlacement(rotm,                      
-		       pos1,       
-		       logicColl,             
-		       "Coll_right",              
-		       logicWorld,             
-		       false,                  
-		       18,
-		       checkOverlaps);
-     
 
-     new G4PVPlacement(rotm,                      
-		       pos2,       
-		       logicColl,             
-		       "Coll_left",              
-		       logicWorld,             
-		       false,                  
-		       19,
-		       checkOverlaps); 
-  */  
-  
+   G4LogicalVolume* logicColl = new G4LogicalVolume(outer,
+						    coll_mat,
+						    "Coll_LV");
+
+   new G4PVPlacement(0,
+		     pos1,
+		     logicColl,
+		     "Coll_right",
+		     logicWorld,
+		     false,
+		     18,
+		     checkOverlaps);
+
+   /*
+   new G4PVPlacement(0,
+		     pos2,
+		     logicColl,
+		     "Coll_left",
+		     logicWorld,
+		     false,
+		     19,
+		     checkOverlaps);
+   */
   return physWorld; 
 }

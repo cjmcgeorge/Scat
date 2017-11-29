@@ -12,7 +12,7 @@
 /random/setSeeds 53 79
 
 
-/run/beamOn 20
+/run/beamOn 2000
 
 # 1 Bn
 #/run/beamOn 1000000000
