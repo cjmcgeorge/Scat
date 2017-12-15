@@ -110,6 +110,10 @@ void Tangle2RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->CreateNtupleIColumn("nb_Compt16");
   analysisManager->CreateNtupleIColumn("nb_Compt17");
 
+  //number of Compton scattering in the collimator
+  analysisManager->CreateNtupleIColumn("nb_Compt_Coll");
+
+
   //position of first Compton in A
   analysisManager->CreateNtupleDColumn("XposA_1st");
   analysisManager->CreateNtupleDColumn("YposA_1st");

@@ -42,7 +42,8 @@ void Tangle2EventAction::BeginOfEventAction(const G4Event*)
   Tangle2::eDepColl1 = 0;
   Tangle2::eDepColl2 = 0;
   for (G4int i = 0; i<18; i++){
-  Tangle2::nb_Compt[i] = 0.;}
+  Tangle2::nb_Compt[i] = 0.;  
+  Tangle2::nb_Compt_Coll = 0.;}
   Tangle2::posA_1 = G4ThreeVector(-99.,-99.,-99.);
   Tangle2::posA_2 = G4ThreeVector(-99.,-99.,-99.);
   Tangle2::posB_1 = G4ThreeVector(-99.,-99.,-99.);
@@ -107,7 +108,9 @@ void Tangle2EventAction::EndOfEventAction(const G4Event*)
 	man->FillNtupleDColumn(19, Tangle2::eDepColl2/MeV);
       
     for (G4int i = 0 ; i < 18 ; i++){
-  	man->FillNtupleIColumn(i+20, Tangle2::nb_Compt[i]);}
+      man->FillNtupleIColumn(i+20, Tangle2::nb_Compt[i]);}
+
+	man->FillNtupleDColumn(59, Tangle2::nb_Compt_Coll);
 
 	man->FillNtupleDColumn(38, Tangle2::posA_1[0]/mm);
 	man->FillNtupleDColumn(39, Tangle2::posA_1[1]/mm);
