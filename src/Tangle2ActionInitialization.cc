@@ -36,7 +36,7 @@ void Tangle2ActionInitialization::BuildForMaster() const
 void Tangle2ActionInitialization::Build() const
 {
   Tangle2RunAction* runAction = new Tangle2RunAction;
-
+  
   Tangle2SteppingAction* steppingAction
     = new Tangle2SteppingAction(runAction);
 

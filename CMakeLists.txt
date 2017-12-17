@@ -44,7 +44,8 @@ target_link_libraries(tangle2 ${Geant4_LIBRARIES})
 # relies on these scripts being in the current working directory.
 #
 set(tangle2_SCRIPTS
-  vis.mac
+  visGraph.mac
+  visNoGraph.mac
   pretty.mac
   gps.mac
   )

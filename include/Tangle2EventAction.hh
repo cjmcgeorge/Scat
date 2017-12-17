@@ -33,9 +33,9 @@ public:
 
   virtual void BeginOfEventAction(const G4Event*);
   virtual void EndOfEventAction(const G4Event*);
-
+  
 private:
-
+  
   Tangle2VSteppingAction* fpTangle2VSteppingAction;
 };
 

@@ -45,17 +45,19 @@ Tangle2RunAction::~Tangle2RunAction()
 
 void Tangle2RunAction::BeginOfRunAction(const G4Run*)
 {
-   G4cout
-  << "Tangle2RunAction::BeginOfRunAction: Thread: "
-  << G4Threading::G4GetThreadId()
-  << G4endl;
-
+  G4cout
+    << "Tangle2RunAction::BeginOfRunAction: Thread: "
+    << G4Threading::G4GetThreadId()
+    << G4endl;
+  
   if (G4Threading::IsWorkerThread()) {
 
+    Tangle2::nEvents   = 0;
     Tangle2::nEventsPh = 0;
    
   } else {  // Master thread
 
+    Tangle2::nMasterEvents = 0;
     Tangle2::nMasterEventsPh = 0;
   }
 
@@ -63,7 +65,7 @@ void Tangle2RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->SetFirstNtupleId(1);
   
   analysisManager->CreateNtuple("Tangle2", "Tangle2");
-
+  
   //energy deposited in crystals in A
   analysisManager->CreateNtupleDColumn("edep0");
   analysisManager->CreateNtupleDColumn("edep1");
@@ -83,11 +85,11 @@ void Tangle2RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->CreateNtupleDColumn("edep14");
   analysisManager->CreateNtupleDColumn("edep15");
   analysisManager->CreateNtupleDColumn("edep16");
-  analysisManager->CreateNtupleDColumn("edep17");
+  analysisManager->CreateNtupleDColumn("edep17"); 
 
   //energy deposited in collimator 
   analysisManager->CreateNtupleDColumn("edepColl1");
-  analysisManager->CreateNtupleDColumn("edepColl2");
+  analysisManager->CreateNtupleDColumn("edepColl2"); // 20
 
   //number of Compton scattering processes in each crystal
   analysisManager->CreateNtupleIColumn("nb_Compt0");
@@ -108,7 +110,7 @@ void Tangle2RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->CreateNtupleIColumn("nb_Compt14");
   analysisManager->CreateNtupleIColumn("nb_Compt15");
   analysisManager->CreateNtupleIColumn("nb_Compt16");
-  analysisManager->CreateNtupleIColumn("nb_Compt17");
+  analysisManager->CreateNtupleIColumn("nb_Compt17"); // 38
 
   //number of Compton scattering in the collimator
   analysisManager->CreateNtupleIColumn("nb_Compt_Coll");
@@ -143,13 +145,17 @@ void Tangle2RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->CreateNtupleDColumn("PhiA_2nd");
   analysisManager->CreateNtupleDColumn("ThetaB_2nd");
   analysisManager->CreateNtupleDColumn("PhiB_2nd");
+  
+  analysisManager->CreateNtupleDColumn("dPhi_A1B2");
+  analysisManager->CreateNtupleDColumn("dPhi_A2B1");
+  analysisManager->CreateNtupleDColumn("dPhi_A2B2");
    
   analysisManager->FinishNtuple();
-
+  
   analysisManager->OpenFile("Tangle2");
-
+  
   G4RunManager::GetRunManager()->SetRandomNumberStore(false);
-
+  
 }
 
 namespace {
@@ -158,30 +164,46 @@ namespace {
 
 void Tangle2RunAction::EndOfRunAction(const G4Run* run)
 {
-  if (G4Threading::IsWorkerThread()) {
-
-    G4cout
-    << "Tangle2RunAction::EndOfRunAction: Thread: "
-    << G4Threading::G4GetThreadId()
-    << ", " << Tangle2::nEventsPh << " 511 keV deposit events"
-    << G4endl;
-    
-    // Always use a lock when writing to a location that is shared by threads
-    G4AutoLock lock(&mutex);
-    Tangle2::nMasterEventsPh += Tangle2::nEventsPh;
-
-  } else {  // Master thread
-    Tangle2::nMasterEventsPh += Tangle2::nEventsPh;
-    G4cout
-     << "Tangle2RunAction::EndOfRunAction: Master thread: "
-    << Tangle2::nMasterEventsPh << " 511 keV deposit events"
-    << G4endl;
-    
   
+  G4cout << G4endl;
+  
+  if (G4Threading::IsWorkerThread()) {
+    
+    G4cout
+      << "Tangle2RunAction::EndOfRunAction: Thread: "
+      << G4Threading::G4GetThreadId() << G4endl;
+    
+    G4cout << Tangle2::nEvents << " events, "
+	   << ", " << Tangle2::nEventsPh << " 511 keV deposit events"
+	   << G4endl;
+    
+    // Always use a lock when writing to a 
+    // location that is shared by threads
+    G4AutoLock lock(&mutex);
+    Tangle2::nMasterEvents += Tangle2::nEvents;
+    Tangle2::nMasterEventsPh += Tangle2::nEventsPh;
+    
+  } else {  // Master thread
+    Tangle2::nMasterEvents += Tangle2::nEvents;
+    Tangle2::nMasterEventsPh += Tangle2::nEventsPh;
+    G4cout
+      << "Tangle2RunAction::EndOfRunAction: Master thread: "
+      << G4endl;
+    
+    G4cout << Tangle2::nMasterEvents   << " events, "
+	   << Tangle2::nMasterEventsPh << " 511 keV deposit events"
+	   << G4endl;
   }
-
+  
+  //   G4cout << G4endl;
+  //   G4cout << " nA1B1 = " << Tangle2::nA1B1 << G4endl;
+  //   G4cout << " nA1B2 = " << Tangle2::nA1B2 << G4endl;
+  //   G4cout << " nA2B1 = " << Tangle2::nA2B1 << G4endl;
+  //   G4cout << " nA2B2 = " << Tangle2::nA2B2 << G4endl;
+  //   G4cout << G4endl;
+  
   G4AnalysisManager* man = G4AnalysisManager::Instance();
   man->Write();
   man->CloseFile();
-
+  
 }

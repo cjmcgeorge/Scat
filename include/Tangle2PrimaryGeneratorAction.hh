@@ -29,15 +29,15 @@ class G4Event;
 
 class Tangle2PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
-  public:
+public:
   Tangle2PrimaryGeneratorAction();
   virtual ~Tangle2PrimaryGeneratorAction();
-
+  
   virtual void GeneratePrimaries(G4Event*);         
-
+  
   const G4ParticleGun* GetParticleGun() const { return fParticleGun; }
   
-  private:
+private:
   //G4GeneralParticleSource*  fParticleGun;
   
   G4ParticleGun*  fParticleGun;

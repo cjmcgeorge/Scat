@@ -32,294 +32,358 @@
 #include <vector>
 
 Tangle2SteppingAction::Tangle2SteppingAction
-(Tangle2RunAction* runAction)
-{}
+(Tangle2RunAction* runAction){}
+
 
 void Tangle2SteppingAction::BeginOfEventAction()
 {
+  const G4Event* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
+  if(evt) eventID = evt->GetEventID();
+
+  if(Tangle2::positrons){
+    sndGammaTrackID = 2; // first track is 3
+  }
+  
+  if(eventID!=previousEventID){
+    previousEventID = eventID;
+    
+    if(comments){
+      G4cout << G4endl;
+      G4cout << " Event " << eventID << G4endl;
+    }
+    
+    for (int i = 0 ; i < 18 ; i++)
+      Tangle2::nb_Compt[i]=0; 
+    
+    nComptonA     = 0;
+    nComptonB     = 0;
+    
+    trackID_A1 = -1;
+    trackID_B1 = -1;
+    
+    // this boolean is used to skip angle calculations
+    // for events without Compt for both gammas
+    doubleComptEvent = true;
+
+    Tangle2::nb_Compt_Coll = 0;
+  }
+ 
 }
+
 
 void Tangle2SteppingAction::EndOfEventAction()
 {
-}
+  if( nComptonA >= 1  && 
+      nComptonB >= 1 ){
+    
+    if(comments){
+      G4cout << G4endl;
+      G4cout << " beam_A = (" << beam_A.getX() 
+	     <<           "," << beam_A.getY() 
+	     <<           "," << beam_A.getZ()
+	     <<          " )" << G4endl;
+      G4cout << " beam_B = (" << beam_B.getX() 
+	     <<           "," << beam_B.getY() 
+	     <<           "," << beam_B.getZ()
+	     <<          " )" << G4endl;
+    }
+    
+    if(comments){
+      G4cout << G4endl;
+      G4cout << " --------------------------- " << G4endl;
+      G4cout << " Event " << eventID            << G4endl;
+      G4cout << " Had Compt for both gammas   " << G4endl;
+      G4cout << " --------------------------- " << G4endl;
+      G4cout << G4endl;
+    }
+    
+    Tangle2::dphi = Tangle2::phiB + Tangle2::phiA;
+    
+    if (Tangle2::dphi < 0)
+      Tangle2::dphi = Tangle2::dphi + 360;
+    
+    Tangle2::nA1B1++;
+  
+  }
+  
+  if(nComptonA >= 2 && 
+     nComptonB >= 1){
+    
+    Tangle2::dphiA2B1 = Tangle2::phiB + Tangle2::phiA2;
+    
+    if (Tangle2::dphiA2B1 < 0)
+      Tangle2::dphiA2B1 = Tangle2::dphiA2B1 + 360;
+    
+    Tangle2::nA2B1++;
+    
+  }
+  
+  if(nComptonA >= 1 && 
+     nComptonB >= 2){
+  
+    Tangle2::dphiA1B2 = Tangle2::phiB2 + Tangle2::phiA;
+    
+    if (Tangle2::dphiA1B2 < 0)
+      Tangle2::dphiA1B2 = Tangle2::dphiA1B2 + 360;
+    
+    Tangle2::nA1B2++;
+  }
+  
+  if(nComptonA >= 2 && 
+     nComptonB >= 2){
 
-//Define a function for calculating angles theta and phi
-void CalculateThetaPhi
-  (const G4ThreeVector& v,
-   const G4ThreeVector& z_axis,
-   // Output quantities
-   G4ThreeVector& y_axis,
-   G4ThreeVector& x_axis,
-   G4double& cosTheta,
-   G4double& theta,
-   G4double& phi)
-  {
-    cosTheta = v*z_axis;
-    theta = std::acos(cosTheta) * 180/(pi); //convert to degrees
-    // Make y' perpendicular to global z-axis.
-    y_axis = (z_axis.cross(G4ThreeVector(0,0,1))).unit();
-    x_axis = y_axis.cross(z_axis);
-    const G4ThreeVector ontoXYPlane = v.cross(z_axis);
-    // ontoXYPlane is a vector in the xy-plane, but perpendicular to the
-    // projection of the scattered photon, so
-    const G4double projection_x = -ontoXYPlane*y_axis;
-    const G4double projection_y = ontoXYPlane*x_axis;
-    phi = std::atan2(projection_y,projection_x) * 180/(pi); //convert to degrees
+    Tangle2::dphiA2B2 = Tangle2::phiB2 + Tangle2::phiA2;
+    
+    if (Tangle2::dphiA2B2 < 0)
+      Tangle2::dphiA2B2 = Tangle2::dphiA2B2 + 360;
+    
+    Tangle2::nA2B2++;
   }
 
+}
 
-//initialise parameters 
-G4int paramA, paramB,StepANo1, StepANo2, StepBNo1, StepBNo2, IdA, IdB;
+void CalculateThetaPhi (const G4ThreeVector& vBeam,
+			const G4ThreeVector& vPre,
+			const G4ThreeVector& vScat,
+			// Output quantities
+			G4double& theta,
+			G4double& phi)
+{
+  
+  G4double cosTheta = vScat*vPre;
+  theta = std::acos(cosTheta) * 180/(pi); //convert to degrees
+  
+  // Redefine x,y,z in the frame of the beam
+  const G4ThreeVector z_axis = vBeam;
+  
+  G4ThreeVector arbitraryRef = G4ThreeVector(1,1,1).unit();
 
+  // in the unlikey event...
+  if( vBeam.unit() == arbitraryRef )
+    arbitraryRef = G4ThreeVector(0,1,1).unit();
+  
+  // Make new y perpendicular to new z-axis.
+  const G4ThreeVector y_axis = (z_axis.cross(arbitraryRef)).unit();
+  // Make new x perpendicular to z and y.
+  const G4ThreeVector x_axis = y_axis.cross(z_axis);
+  
+  const G4ThreeVector vScat_xy = vScat.cross(z_axis);
+  // vScat_xy is vector in xy-plane, perpendicular 
+  // to scattered photon projection
+  const G4double vScat_x = -vScat_xy*y_axis;
+  const G4double vScat_y = vScat_xy*x_axis;
+  phi = std::atan2(vScat_y,vScat_x) * 180/(pi);
+}
 
 void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
 {
   
-  G4StepPoint* preStepPoint = step->GetPreStepPoint();
+  G4StepPoint* preStepPoint  = step->GetPreStepPoint();
   G4StepPoint* postStepPoint = step->GetPostStepPoint();
-
-  G4double eDep = step->GetTotalEnergyDeposit();
-
+  
+  G4double     eDep = step->GetTotalEnergyDeposit();
+  
   //G4VPhysicalVolume* prePV = preStepPoint->GetPhysicalVolume();
   G4VPhysicalVolume* postPV = postStepPoint->GetPhysicalVolume();
 
-  G4ThreeVector prePos = preStepPoint->GetPosition();
+  G4ThreeVector prePos  = preStepPoint->GetPosition();
   G4ThreeVector postPos = postStepPoint->GetPosition();
-
-  G4ThreeVector preMomentumDir = preStepPoint->GetMomentumDirection();
+  
+  G4ThreeVector preMomentumDir  = preStepPoint->GetMomentumDirection();
   G4ThreeVector postMomentumDir = postStepPoint->GetMomentumDirection();
-
+  
+  G4ThreeVector preStepPol  = preStepPoint->GetPolarization(); 
+  G4ThreeVector postStepPol = postStepPoint->GetPolarization(); 
+  
   G4Track* track = step->GetTrack();
-  const G4VProcess* processDefinedStep = postStepPoint->GetProcessDefinedStep();
-   
-  G4int stepNumber = track->GetCurrentStepNumber();
-  G4int ID = track->GetTrackID();
+  
+  G4int    stepNumber   = track->GetCurrentStepNumber();
+  G4int    trackID      = track->GetTrackID();
   G4String particleName = track->GetDefinition()->GetParticleName();
-  G4String processName = processDefinedStep->GetProcessName();
+
+  const G4VProcess* processDefinedStep;
+  processDefinedStep    = postStepPoint->GetProcessDefinedStep();
+  G4String processName  = processDefinedStep->GetProcessName();
+  
   //G4ParticleDefinition* particleDefinition = track->GetDefinition();
   //const G4VProcess* creatorProcess = track->GetCreatorProcess();
+  
+  // Record energy deposited in crystal
+  // for any processes
+  if ( (postPV)   && 
+       (eDep > 0) && 
+       (postPV->GetName() != "disc") &&
+       (postPV->GetName() != "Coll_right") &&
+       (postPV->GetName() != "Coll_left"))
+    {
+	Tangle2::eDepCryst[postPV->GetCopyNo()] += eDep;
+    }
+  
 
-    
-  //Fill energy array
-  if ((postPV) && (eDep > 0) && (postPV->GetName() != "disc") && (postPV->GetName() != "Coll_right") && (postPV->GetName() != "Coll_left")){
-    Tangle2::eDepCryst[postPV->GetCopyNo()] += eDep;}
 
   //Fill Collimator energy depositions
   /* if((postPV->GetCopyNo()==18) && (eDep>0)){
     Tangle2::eDepColl1 +=eDep;}
-
   if((postPV->GetCopyNo()==19) && (eDep>0)){
     Tangle2::eDepColl2 +=eDep;}
   */
-
-
-
-  //For the first particle and first step paramA1/B1 are set to zero
-  //These will be used to determine when the FIRST Compton event 
-  if((ID==2)&&(stepNumber==1)){
-    paramA = 0;
-    paramB = 0;
-  }
-
-
-  //-------------Look only at PHOTONS undergoing COMPTON processes--------------
   
-  // return if particle is NOT a photon and the interaction is NOT Compton 
+  // If there was no Compton scattering for the 
+  // first track then delta phi cant be calculated
+  if(!doubleComptEvent)
+    return;
   
-  if((particleName != "gamma") || (processName != "compt")) {
-      return;
-    }
-  
-
-  if((postPos[0]>0)){ 
+  if ( trackID   == sndGammaTrackID &&
+       nComptonA == 0               &&
+       nComptonB == 0 ){
     
-   IdA =  ID;
-    
-   }
-
-    
-  if(postPos[0]<0){ 
-    
-    IdB = ID;
-      
-    }
-  
-
-
-  
-  //------Determine Step Numbers of relevant interactions----------------
-    
-  /*  Find the step number for the FIRST Compton interaction 
-      occurs when paramA/paramB equal 0
-      At this interaction set paramA/paramB to be 1
-      
-      Then find the step number for the SECOND Compton interaction
-      occurs when paramA/paramB equal 1
-      Set paramA/paramB to be 2, so no further Compton interactions are included */
-  
-  //Photon 1
-  if((ID == IdA) && (paramA == 0)){ //first compton event for A
-     paramA = 1;
-     StepANo1 = stepNumber;
-   }
-   
-  if ((ID == IdA) && (stepNumber>StepANo1) && (paramA==1)){ //second compton event for A
-     paramA = 2;
-     StepANo2 = stepNumber;
-  }
-
-  //Photon 2
-   if((ID == IdB) && (paramB ==0)){ //first compton event for B
-     paramB = 1;
-     StepBNo1 = stepNumber;
-   }
-   
-   if ((ID == IdB) && (stepNumber>StepBNo1) && (paramB==1)){ //second compton event for B
-     paramB = 2;
-     StepBNo2 = stepNumber;
-  }
-
- 
-    
-  //-----------------Photon 1----------------
-   // if (ID == IdA){
-   if(postPos[0]>0){ //photon has hit detector A
-  //first interaction
-  if (stepNumber == StepANo1){
-      
-    Tangle2::posA_1 = postPos; 
-      
-    //calculate the angles 
-    G4ThreeVector photon1_y_axis;  // dummy, i.e., not used.
-    G4ThreeVector photon1_x_axis;  // dummy
-    G4double fCosTheta1;
-    
-    CalculateThetaPhi(postMomentumDir,
-		      preMomentumDir,
-		      photon1_y_axis,
-		      photon1_x_axis,
-		      fCosTheta1,
-		      Tangle2::thetaA,
-		      Tangle2::phiA);
-
-      if (Tangle2::thetaA==0){
-	G4cout<<"theta A is zero"<<G4endl;
-      }
-
-  }
-      
-  
-
-    // second interaction
-   if (stepNumber == StepANo2){
-  
-    Tangle2::posA_2 = postPos;
-    
-     //calculate the angles 
-    G4ThreeVector photon1_y_axis2;  // dummy, i.e., not used.
-    G4ThreeVector photon1_x_axis2;  // dummy
-    G4double fCosThetaA2;
-    
-    CalculateThetaPhi(postMomentumDir,
-		      preMomentumDir,
-		      photon1_y_axis2,
-		      photon1_x_axis2,
-		      fCosThetaA2,
-		      Tangle2::thetaA2,
-		      Tangle2::phiA2);
+    if(comments){
+      G4cout << G4endl;
+      G4cout << " No Compton for first track " << G4endl;
     }
     
+    doubleComptEvent     = false;
+    return;
   }
-   
-  //---------------------Photon 2-------------------------
-   //if (ID == IdB){
-   if(postPos[0]<0){ //photon has hit detector B
-  //first interaction
-	if (stepNumber == StepBNo1){
-   
-    Tangle2::posB_1 = postPos;
     
-	//calculate angles 
-    G4ThreeVector photon2_y_axis;  // dummy, i.e., not used.s
-    G4ThreeVector photon2_x_axis;  // dummy
-    G4double fCosTheta2; 
-    CalculateThetaPhi(postMomentumDir,
-		      preMomentumDir,
-		      //G4ThreeVector(1,0,0),
-		      photon2_y_axis,
-		      photon2_x_axis,
-		      fCosTheta2,
-		      Tangle2::thetaB,
-		      Tangle2::phiB);
-    
-     if (Tangle2::thetaB==0){
-	G4cout<<"theta B is zero"<<G4endl;
-      }
-    
-  }
+  //-------------------------
+  // From here on only gammas 
+  // Compton scattering may pass. 
   
-  //second interaction
-	if (stepNumber == StepBNo2){
-    
-    Tangle2::posB_2 = postPos;
-
-    
-	//calculate angles 
-    G4ThreeVector photon2_y_axis2;  // dummy, i.e., not used.s
-    G4ThreeVector photon2_x_axis2;  // dummy
-    G4double fCosThetaB2; 
-    CalculateThetaPhi(postMomentumDir,
-		      preMomentumDir,
-		      //G4ThreeVector(1,0,0),
-		      photon2_y_axis2,
-		      photon2_x_axis2,
-		      fCosThetaB2,
-		      Tangle2::thetaB2,
-		      Tangle2::phiB2);
-
-	}
-
-  }
+  if( (particleName != "gamma") || 
+      (processName  != "compt") ) 
+    return;
   
-   
-//Count the number of compton scatters occuring in each respective crystal
-
-   for (G4int i = 0; i<9; i++){
-
-     if((stepNumber==StepANo1) && (ID==IdA)){
-	 Tangle2::nb_Compt[i]=0; //set to zero at the beginning of each event
-	}
+  G4double cosThetaPol = preStepPol*postStepPol;
+  G4double thetaPol    = std::acos(cosThetaPol) * 180/(pi); 
+  
+  // array A is in positive x direction
+  if     ( postPos[0] > 0) {
     
-     if(postPV->GetCopyNo()==i){
-	Tangle2::nb_Compt[i] +=1;
-       }
-     }
-
-   for (G4int i = 9; i<18; i++){
-	
-     if((stepNumber==StepBNo1) && (ID==IdB)){
-	  Tangle2::nb_Compt[i]=0; //set to zero at the beginning of each event
-	}
-    
-     if(postPV->GetCopyNo()==i){
-	  Tangle2::nb_Compt[i] +=1;
-	}
-   }
-	
+    // first Compton in A
+    if     (nComptonA == 0){ 
+      
+      trackID_A1 = trackID;
+      nComptonA  = 1;
+      Tangle2::posA_1 = postPos; 
+      
+      beam_A   = preMomentumDir;
+      vScat_A1 = postMomentumDir;
+      
+      CalculateThetaPhi(beam_A,
+			beam_A,
+			vScat_A1,
+			Tangle2::thetaA,
+			Tangle2::phiA);
   
 
- 
-   //--Calculate delta phi--
-   
-   Tangle2::dphi = Tangle2::phiB + Tangle2::phiA;
+//       G4cout << G4endl;
+//       G4cout << " beam_A.phi()    = " << beam_A.phi()*180/pi   << G4endl;
+//       G4cout << " vScat_A1.phi()  = " << vScat_A1.phi()*180/pi << G4endl;
+//       G4cout << " Tangle2::thetaA = " << Tangle2::thetaA       << G4endl;
+//       G4cout << " Tangle2::phiA   = " << Tangle2::phiA         << G4endl;
+//       G4cout << " thetaPol        = " << thetaPol              << G4endl;
+      
+    }
+    // second Compton in A
+    else if(nComptonA == 1 &&
+	    trackID == trackID_A1){
+      
+      nComptonA       = 2;
+      Tangle2::posA_2 = postPos;
+      
+      vScat_A2 = postMomentumDir;  
+      
+      CalculateThetaPhi(beam_A,
+			preMomentumDir,
+			vScat_A2,
+			Tangle2::thetaA2,
+			Tangle2::phiA2);
+      
+    }
+    else if(nComptonA == 2 &&
+	    trackID == trackID_A1){
+      nComptonA = 3;
+    }
+  }
+  // array B is in negative x direction    
+  else if(postPos[0] < 0){ 
+    
+    //  first Compton in B
+    if     (nComptonB == 0){ 
+      
+      trackID_B1 = trackID;
+      nComptonB = 1;
+      Tangle2::posB_1 = postPos;
+      
+      beam_B   = preMomentumDir;
+      vScat_B1 = postMomentumDir;
+      
+      CalculateThetaPhi(beam_B,
+			beam_B,
+			vScat_B1,
+			Tangle2::thetaB,
+			Tangle2::phiB);
+//       G4cout << G4endl;
+//       G4cout << " beam_B.phi()    = " << beam_B.phi()*180/pi   << G4endl;
+//       G4cout << " vScat_B1.phi()  = " << vScat_B1.phi()*180/pi << G4endl;
+//       G4cout << " Tangle2::thetaB = " << Tangle2::thetaB       << G4endl;
+//       G4cout << " Tangle2::phiB   = " << Tangle2::phiB         << G4endl;
+//       G4cout << " thetaPol        = " << thetaPol              << G4endl;
+    
+    }
+    // second Compton in B
+    else if(nComptonB == 1 &&
+	    trackID   == trackID_B1){
+    
+      nComptonB = 2;
+      Tangle2::posB_2 = postPos;
+      
+      vScat_B2 = postMomentumDir;  
+      
+      CalculateThetaPhi(beam_B,
+			preMomentumDir,
+			vScat_B2,
+			Tangle2::thetaB2,
+			Tangle2::phiB2);
 
-   //Enforce 0<dphi<360 
-   if (Tangle2::dphi <0){
-     Tangle2::dphi = Tangle2::dphi + 360;}
- 
+    }
+    else if(nComptonB == 2 &&
+	    trackID == trackID_B1){
+      nComptonB = 3; 
+    }
+  }
+  /*else if(pos1 < 0){
+    if (nb_Compt_Coll == 0){
+      trackID = trackID_B1;
+      nb_Compt_Coll = 1;
+    }
+    else if(nb_Compt_Coll==1 &&
+	    trackID === trackID_B1){
+      nb_Compt_Coll = 2;
+    }
+    else if(nb_Compt_Coll == 2 &&
+	    trackID == trackID_B1){
+      nb_Compt_Coll = 3;
+    }
+  */
+  if(comments){
+    G4cout << G4endl;
+    G4cout << " particleName = " << particleName << G4endl;
+    G4cout << " processName  = " << processName  << G4endl;
+    G4cout << " trackID      = " << trackID      << G4endl;
+    G4cout << " stepNumber   = " << stepNumber   << G4endl;
+    //G4cout << " nb_Compt_Coll = " << nb_Compt_Coll <<  G4endl;    
+    G4cout << " nComptonA    = " << nComptonA   << G4endl;
+    G4cout << " nComptonB    = " << nComptonB   << G4endl;
+    G4cout << " trackID_A1   = " << trackID_A1  << G4endl;
+    G4cout << " trackID_B1   = " << trackID_B1  << G4endl;
+  }
 
-
-
-return;
+  
+  // Iterate the number of Compton scatters
+  // occuring in each crystal
+  Tangle2::nb_Compt[postPV->GetCopyNo()]++;
+  
+  return;
 }
-
