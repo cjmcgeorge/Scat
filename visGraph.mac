@@ -10,6 +10,8 @@
 
 /run/beamOn 5
 
+#/run/beamOn 500
+
 # 2 Million
 #/run/beamOn 2000000
 

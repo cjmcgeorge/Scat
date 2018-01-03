@@ -54,18 +54,21 @@ void Tangle2SteppingAction::BeginOfEventAction()
     
     for (int i = 0 ; i < 18 ; i++)
       Tangle2::nb_Compt[i]=0; 
+
+    Tangle2::nb_Compt_Coll = 0;
     
     nComptonA     = 0;
     nComptonB     = 0;
+    nComptonColl  = 0;
     
     trackID_A1 = -1;
     trackID_B1 = -1;
+    trackID_Coll = -1;
     
     // this boolean is used to skip angle calculations
     // for events without Compt for both gammas
     doubleComptEvent = true;
 
-    Tangle2::nb_Compt_Coll = 0;
   }
  
 }
@@ -210,13 +213,18 @@ void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
   
   // Record energy deposited in crystal
   // for any processes
+  
   if ( (postPV)   && 
        (eDep > 0) && 
        (postPV->GetName() != "disc") &&
        (postPV->GetName() != "Coll_right") &&
        (postPV->GetName() != "Coll_left"))
     {
-	Tangle2::eDepCryst[postPV->GetCopyNo()] += eDep;
+      Tangle2::eDepCryst[postPV->GetCopyNo()] += eDep;
+
+      //      G4cout << "eDepCryst" << postPV->GetCopyNo() << " = " << Tangle2::eDepCryst[postPV->GetCopyNo() ]  << G4endl;
+      
+      
     }
   
 
@@ -258,7 +266,7 @@ void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
   G4double thetaPol    = std::acos(cosThetaPol) * 180/(pi); 
   
   // array A is in positive x direction
-  if     ( postPos[0] > 0) {
+  if     (postPos[0] > 0) {
     
     // first Compton in A
     if     (nComptonA == 0){ 
@@ -307,7 +315,7 @@ void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
     }
   }
   // array B is in negative x direction    
-  else if(postPos[0] < 0){ 
+  else if(postPos[0] < 0  &&  postPV->GetName() != "Coll_right"){ 
     
     //  first Compton in B
     if     (nComptonB == 0){ 
@@ -353,37 +361,74 @@ void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
       nComptonB = 3; 
     }
   }
-  /*else if(pos1 < 0){
-    if (nb_Compt_Coll == 0){
-      trackID = trackID_B1;
-      nb_Compt_Coll = 1;
+  else if(postPos[0] < 0  &&  postPV->GetName() == "Coll_right"){ 
+    
+    //  first Compton in Collimator
+    if     (nComptonColl == 0){ 
+      
+      trackID_Coll = trackID;
+      nComptonColl = 1;
+      //Tangle2::posB_1 = postPos;
+      
+      //beam_B   = preMomentumDir;
+      //vScat_B1 = postMomentumDir;
+      
+      //CalculateThetaPhi(beam_B,
+      //			beam_B,
+      //		vScat_B1,
+      //		Tangle2::thetaB,
+      //		Tangle2::phiB);
+      //G4cout << G4endl;
+      //G4cout << " beam_B.phi()    = " << beam_B.phi()*180/pi   << G4endl;
+      //G4cout << " vScat_B1.phi()  = " << vScat_B1.phi()*180/pi << G4endl;
+//       G4cout << " Tangle2::thetaB = " << Tangle2::thetaB       << G4endl;
+//       G4cout << " Tangle2::phiB   = " << Tangle2::phiB         << G4endl;
+//       G4cout << " thetaPol        = " << thetaPol              << G4endl;
+    
     }
-    else if(nb_Compt_Coll==1 &&
-	    trackID === trackID_B1){
-      nb_Compt_Coll = 2;
+    // second Compton in Collimator
+    else if(nComptonColl == 1 &&
+	    trackID   == trackID_Coll){
+    
+      nComptonColl = 2;
+      //Tangle2::posB_2 = postPos;
+      
+      //vScat_B2 = postMomentumDir;  
+      
+      //CalculateThetaPhi(beam_B,
+      //		preMomentumDir,
+      //		vScat_B2,
+      //		Tangle2::thetaB2,
+      ///		Tangle2::phiB2);
+
     }
-    else if(nb_Compt_Coll == 2 &&
-	    trackID == trackID_B1){
-      nb_Compt_Coll = 3;
+    else if(nComptonColl == 2 &&
+	    trackID == trackID_Coll){
+      nComptonColl = 3; 
     }
-  */
+  }  
+
   if(comments){
     G4cout << G4endl;
     G4cout << " particleName = " << particleName << G4endl;
     G4cout << " processName  = " << processName  << G4endl;
     G4cout << " trackID      = " << trackID      << G4endl;
     G4cout << " stepNumber   = " << stepNumber   << G4endl;
-    //G4cout << " nb_Compt_Coll = " << nb_Compt_Coll <<  G4endl;    
+    G4cout << " nComptonColl = " << nComptonColl <<  G4endl;    
     G4cout << " nComptonA    = " << nComptonA   << G4endl;
     G4cout << " nComptonB    = " << nComptonB   << G4endl;
     G4cout << " trackID_A1   = " << trackID_A1  << G4endl;
     G4cout << " trackID_B1   = " << trackID_B1  << G4endl;
+    //    G4cout << " eDepCryst[4] = " << Tangle2::eDepCryst[4] << G4endl;
+    //    G4cout << " eDepCryst[13] = " << Tangle2::eDepCryst[13] << G4endl;
+    
   }
 
   
   // Iterate the number of Compton scatters
   // occuring in each crystal
   Tangle2::nb_Compt[postPV->GetCopyNo()]++;
+  //Tangle2::nb_Compt_Coll[postPV->GetCopyNo()]++;
   
   return;
 }

@@ -51,7 +51,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal
+CMAKE_BINARY_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -124,9 +124,9 @@ install/local/fast: install/local
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

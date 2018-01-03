@@ -143,7 +143,7 @@ G4LogicalVolume* logicCryst =
 
   //make your detector geometry choice here
 
- G4bool horseshoeCrystal = false;
+ G4bool horseshoeCrystal = true;
 
 
  if (horseshoeCrystal) {
@@ -168,54 +168,28 @@ G4LogicalVolume* logicCryst =
 
 
  G4int nbPos = 2;
- G4ThreeVector positions[2] = {
-   G4ThreeVector(pos_dX,0,0),
-   G4ThreeVector(-pos_dX,0,0)};
- 
+ G4ThreeVector positions[18];
+ positions[4] = G4ThreeVector(pos_dX,0,0);
+ positions[13] = G4ThreeVector(-pos_dX,0,0);
+
    new G4PVPlacement(0,
-		     positions[0],
+		     positions[4],
 		     logicCryst,	     
 		     "crystal",
 		     logicWorld,
 		     false,
-		     1,
+		     4,
 		     checkOverlaps);
+ 
   new G4PVPlacement(rotm,
-		    positions[1],
+		    positions[13],
 		    logicScat,
-		    "scatterer",
+		    "horseshoe",
 		    logicWorld,
 		    false,
-		    1,
+		    13,
 		    checkOverlaps);				 
 
-
-  //Cuboid scatterer (collimator)
-
-   G4ThreeVector pos1 = G4ThreeVector(-pos_dX*mm, 0.*mm, 0.*mm);
-
-   G4Material* coll_mat   = nist->FindOrBuildMaterial("lead");
-
-
-
-  G4Box* outer = new G4Box("Outer",
-			    0.5*mm,
-			    0.5*mm,
-			    0.5*mm);
-
-
-   G4LogicalVolume* logicColl = new G4LogicalVolume(outer,
-						    coll_mat,
-						    "Coll_LV");
-
-   new G4PVPlacement(0,
-		     pos1,
-		     logicColl,
-		     "Coll_right",
-		     logicWorld,
-		     false,
-		     18,
-		     checkOverlaps);
 
 
  }
@@ -257,6 +231,33 @@ G4LogicalVolume* logicCryst =
 		      checkOverlaps);          
   }
  }
+
+  //Cuboid scatterer (collimator)
+
+   G4ThreeVector pos1 = G4ThreeVector(-pos_dX*mm, 0.*mm, 0.*mm);
+
+   G4Material* coll_mat   = nist->FindOrBuildMaterial("lead");
+
+
+
+  G4Box* outer = new G4Box("Outer",
+			    0.5*mm,
+			    0.5*mm,
+			    0.5*mm);
+
+
+   G4LogicalVolume* logicColl = new G4LogicalVolume(outer,
+						    coll_mat,
+						    "Coll_LV");
+
+   new G4PVPlacement(0,
+		     pos1,
+		     logicColl,
+		     "Coll_right",
+		     logicWorld,
+		     false,
+		     19,
+		     checkOverlaps);
 
   
 

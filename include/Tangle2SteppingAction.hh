@@ -32,9 +32,9 @@ public:
 
 private:
   //Tangle2RunAction* fpRunAction;
-  
-  G4int nComptonA, nComptonB;
-  G4int trackID_A1, trackID_B1;
+
+  G4int nComptonA, nComptonB, nComptonColl;
+  G4int trackID_A1, trackID_B1, trackID_Coll;
 
   G4int previousEventID = -1;
   G4int eventID         = 0;

@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

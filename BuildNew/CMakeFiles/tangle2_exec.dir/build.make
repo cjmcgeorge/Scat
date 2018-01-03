@@ -46,7 +46,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal
+CMAKE_BINARY_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew
 
 # Utility rule file for tangle2_exec.
 
@@ -71,6 +71,6 @@ CMakeFiles/tangle2_exec.dir/clean:
 .PHONY : CMakeFiles/tangle2_exec.dir/clean
 
 CMakeFiles/tangle2_exec.dir/depend:
-	cd /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2_exec.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2_exec.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/tangle2_exec.dir/depend
 

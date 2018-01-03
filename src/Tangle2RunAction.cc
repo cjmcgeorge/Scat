@@ -67,7 +67,7 @@ void Tangle2RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->CreateNtuple("Tangle2", "Tangle2");
   
   //energy deposited in crystals in A
-  analysisManager->CreateNtupleDColumn("edep0");
+  analysisManager->CreateNtupleDColumn("edep0");//0
   analysisManager->CreateNtupleDColumn("edep1");
   analysisManager->CreateNtupleDColumn("edep2");
   analysisManager->CreateNtupleDColumn("edep3");
@@ -89,7 +89,7 @@ void Tangle2RunAction::BeginOfRunAction(const G4Run*)
 
   //energy deposited in collimator 
   analysisManager->CreateNtupleDColumn("edepColl1");
-  analysisManager->CreateNtupleDColumn("edepColl2"); // 20
+  analysisManager->CreateNtupleDColumn("edepColl2");//19 
 
   //number of Compton scattering processes in each crystal
   analysisManager->CreateNtupleIColumn("nb_Compt0");
@@ -110,46 +110,46 @@ void Tangle2RunAction::BeginOfRunAction(const G4Run*)
   analysisManager->CreateNtupleIColumn("nb_Compt14");
   analysisManager->CreateNtupleIColumn("nb_Compt15");
   analysisManager->CreateNtupleIColumn("nb_Compt16");
-  analysisManager->CreateNtupleIColumn("nb_Compt17"); // 38
-
-  //number of Compton scattering in the collimator
-  analysisManager->CreateNtupleIColumn("nb_Compt_Coll");
-
+  analysisManager->CreateNtupleIColumn("nb_Compt17");
 
   //position of first Compton in A
-  analysisManager->CreateNtupleDColumn("XposA_1st");
+  analysisManager->CreateNtupleDColumn("XposA_1st");//38
   analysisManager->CreateNtupleDColumn("YposA_1st");
-  analysisManager->CreateNtupleDColumn("ZposA_1st");
+  analysisManager->CreateNtupleDColumn("ZposA_1st"); 
   //position of second Compton in A
   analysisManager->CreateNtupleDColumn("XposA_2nd");
   analysisManager->CreateNtupleDColumn("YposA_2nd");
-  analysisManager->CreateNtupleDColumn("ZposA_2nd");
+  analysisManager->CreateNtupleDColumn("ZposA_2nd"); 
   //position of first Compton in B
   analysisManager->CreateNtupleDColumn("XposB_1st");
   analysisManager->CreateNtupleDColumn("YposB_1st");
-  analysisManager->CreateNtupleDColumn("ZposB_1st");
+  analysisManager->CreateNtupleDColumn("ZposB_1st"); 
   //position of second Compton in B
   analysisManager->CreateNtupleDColumn("XposB_2nd");
   analysisManager->CreateNtupleDColumn("YposB_2nd");
-  analysisManager->CreateNtupleDColumn("ZposB_2nd");
+  analysisManager->CreateNtupleDColumn("ZposB_2nd"); 
   
   //angles --> theta and phi 
+
   //first Compton scatter
   analysisManager->CreateNtupleDColumn("ThetaA_1st");
   analysisManager->CreateNtupleDColumn("PhiA_1st");
   analysisManager->CreateNtupleDColumn("ThetaB_1st");
   analysisManager->CreateNtupleDColumn("PhiB_1st");
-  analysisManager->CreateNtupleDColumn("dPhi_1st");
+  analysisManager->CreateNtupleDColumn("dPhi_1st"); 
   //second Compton scatter
   analysisManager->CreateNtupleDColumn("ThetaA_2nd");
   analysisManager->CreateNtupleDColumn("PhiA_2nd");
   analysisManager->CreateNtupleDColumn("ThetaB_2nd");
-  analysisManager->CreateNtupleDColumn("PhiB_2nd");
+  analysisManager->CreateNtupleDColumn("PhiB_2nd"); 
   
   analysisManager->CreateNtupleDColumn("dPhi_A1B2");
   analysisManager->CreateNtupleDColumn("dPhi_A2B1");
-  analysisManager->CreateNtupleDColumn("dPhi_A2B2");
-   
+  analysisManager->CreateNtupleDColumn("dPhi_A2B2"); 
+
+    //number of Compton scattering in the collimator
+  analysisManager->CreateNtupleIColumn("nb_Compt_Coll"); //62
+
   analysisManager->FinishNtuple();
   
   analysisManager->OpenFile("Tangle2");

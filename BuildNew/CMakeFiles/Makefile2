@@ -57,7 +57,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal
+CMAKE_BINARY_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew
 
 #=============================================================================
 # Target rules for target CMakeFiles/tangle2.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/Tangle
 CMakeFiles/tangle2.dir/all:
 	$(MAKE) -f CMakeFiles/tangle2.dir/build.make CMakeFiles/tangle2.dir/depend
 	$(MAKE) -f CMakeFiles/tangle2.dir/build.make CMakeFiles/tangle2.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target tangle2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target tangle2"
 .PHONY : CMakeFiles/tangle2.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/tangle2.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tangle2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tangle2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles 0
 .PHONY : CMakeFiles/tangle2.dir/rule
 
 # Convenience name for target.
@@ -103,14 +103,14 @@ clean: CMakeFiles/tangle2.dir/clean
 CMakeFiles/tangle2_exec.dir/all: CMakeFiles/tangle2.dir/all
 	$(MAKE) -f CMakeFiles/tangle2_exec.dir/build.make CMakeFiles/tangle2_exec.dir/depend
 	$(MAKE) -f CMakeFiles/tangle2_exec.dir/build.make CMakeFiles/tangle2_exec.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles --progress-num= "Built target tangle2_exec"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles --progress-num= "Built target tangle2_exec"
 .PHONY : CMakeFiles/tangle2_exec.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tangle2_exec.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tangle2_exec.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles 0
 .PHONY : CMakeFiles/tangle2_exec.dir/rule
 
 # Convenience name for target.

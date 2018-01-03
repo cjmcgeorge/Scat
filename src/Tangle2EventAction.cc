@@ -99,8 +99,10 @@ void Tangle2EventAction::EndOfEventAction(const G4Event*)
   // 4 and 13 are the central crystals
   if ((Tangle2::eDepCryst[4]  > eThres) && 
       (Tangle2::eDepCryst[13] > eThres) &&  
-      (Tangle2::thetaA !=0)             &&
-      (Tangle2::thetaB !=0)){
+            (Tangle2::thetaA !=0)             &&
+      (Tangle2::thetaB !=0)
+      ){
+    G4cout << "Conditional Satisfied!" << G4endl;
     
     G4AnalysisManager* man = G4AnalysisManager::Instance();
 
@@ -147,7 +149,7 @@ void Tangle2EventAction::EndOfEventAction(const G4Event*)
     man->FillNtupleDColumn(60, Tangle2::dphiA2B1/radian);
     man->FillNtupleDColumn(61, Tangle2::dphiA2B2/radian);
 
-    //print number of compton scatters in the collimator, even if there is no scatter 
+    //print number of compton scatters in the collimator 
    
     man->FillNtupleDColumn(62, Tangle2::nb_Compt_Coll);
     

@@ -4,15 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2ActionInitialization.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/src/Tangle2ActionInitialization.cc.o"
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2Data.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/src/Tangle2Data.cc.o"
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2DetectorConstruction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/src/Tangle2DetectorConstruction.cc.o"
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2EventAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/src/Tangle2EventAction.cc.o"
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2PrimaryGeneratorAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/src/Tangle2PrimaryGeneratorAction.cc.o"
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2RunAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/src/Tangle2RunAction.cc.o"
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2SteppingAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/src/Tangle2SteppingAction.cc.o"
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2TrackingAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/src/Tangle2TrackingAction.cc.o"
-  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/tangle2.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/TangleBuildLocal/CMakeFiles/tangle2.dir/tangle2.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2ActionInitialization.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/src/Tangle2ActionInitialization.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2Data.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/src/Tangle2Data.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2DetectorConstruction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/src/Tangle2DetectorConstruction.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2EventAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/src/Tangle2EventAction.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2PrimaryGeneratorAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/src/Tangle2PrimaryGeneratorAction.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2RunAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/src/Tangle2RunAction.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2SteppingAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/src/Tangle2SteppingAction.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/src/Tangle2TrackingAction.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/src/Tangle2TrackingAction.cc.o"
+  "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/tangle2.cc" "/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir/tangle2.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
