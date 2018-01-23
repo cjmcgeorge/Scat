@@ -1,0 +1,11 @@
+# Positron at rest
+/gps/particle e+
+/gps/ang/type iso
+/gps/energy 0 eV
+/gps/position 0 0 0 m
+# Electron at rest
+/gps/particle e-
+/gps/ang/type iso
+/gps/energy 0 eV
+/gps/position 0 0 0 m
+

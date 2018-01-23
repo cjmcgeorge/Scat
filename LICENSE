@@ -1,0 +1,57 @@
+*******************************************************************************
+Geant4 Associates International Software License
+Version 1.0, 25 May 2010
+
+Copyright (c) Copyright of Geant4 Associates International Ltd, 2009-2010.
+All rights not expressly granted under this license are reserved.
+*******************************************************************************
+
+
+1. Geant4 Associates International Ltd (hereafter 'G4AI') acknowledges that 
+   this is only a limited exclusive license. G4AI is and remains the owner 
+   of all titles, rights, and interests in the software system (hereafter 
+   'the Software').
+2. Under this License you may:
+    - use the Software for internal evaluation and internal research purposes;
+    - create and use derivative works of the Software internally solely for 
+      the purposes permitted above; and
+    - reproduce the Software and your derivative works thereof as reasonably 
+      necessary for the purposes permitted above and for backup purposes, 
+      provided that you reproduce, unaltered, all proprietary notices on or 
+      in the copy.
+3. Under this License you may not, and may not permit others to:
+    - use the Software for the purposes of development or commercialization of 
+      any software, product, tools, intellectual property or for any purpose 
+      other than internal use except as permitted above;
+    - reproduce the Software except as permitted above;
+    - create derivative works of or otherwise alter, adapt, modify or translate 
+      the Software in any way for any purpose except the purposes expressly 
+      permitted above;
+    - distribute, deploy, provide copies of, rent, loan, lease, assign, transfer, 
+      or grant any rights in the Software or derivative works thereof in any 
+      form to any person.
+    - include  this  software in whole or in part in any patent or patent  
+      application  in  respect  of  any  modification  of this software
+      developed by you.
+
+4. DISCLAIMER
+   THIS SOFTWARE IS PROVIDED BY GEANT4 ASSOCIATES INTERNATIONAL LTD "AS IS" AND 
+   ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, IMPLIED 
+   WARRANTIES OF MERCHANTABILITY, OF SATISFACTORY QUALITY, AND FITNESS FOR A 
+   PARTICULAR PURPOSE OR USE ARE DISCLAIMED. GEANT4 ASSOCIATES INTERNATIONAL LTD
+   MAKES NO REPRESENTATION THAT THE SOFTWARE AND MODIFICATIONS THEREOF, WILL NOT 
+   INFRINGE ANY PATENT, COPYRIGHT, TRADE SECRET OR OTHER PROPRIETARY RIGHT.
+
+5. LIMITATION OF LIABILITY
+   GEANT4 ASSOCIATES INTERNATIONAL LTD SHALL HAVE NO LIABILITY FOR DIRECT, 
+   INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES 
+   OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, PROCUREMENT OF SUBSTITUTE 
+   GOODS OR SERVICES, LOSS OF USE, DATA OR PROFITS, OR BUSINESS INTERRUPTION, 
+   HOWEVER CAUSED AND ON ANY THEORY OF CONTRACT, WARRANTY, TORT (INCLUDING 
+   NEGLIGENCE), PRODUCT LIABILITY OR OTHERWISE, ARISING IN ANY WAY OUT OF THE USE 
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+6. This license shall terminate with immediate effect and without notice if you 
+   fail to comply with any of the terms of this license, or if you institute 
+   litigation against Geant4 Associates International Ltd with regard to this 
+   software. 

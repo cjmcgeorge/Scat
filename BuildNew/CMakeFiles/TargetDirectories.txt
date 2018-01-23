@@ -1,0 +1,8 @@
+/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/install.dir
+/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/list_install_components.dir
+/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/rebuild_cache.dir
+/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/edit_cache.dir
+/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2.dir
+/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/tangle2_exec.dir
+/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/install/strip.dir
+/home/pet-virtual/GEANT4/geant4.10.03.p01/Project/Scat/BuildNew/CMakeFiles/install/local.dir
