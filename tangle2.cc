@@ -35,7 +35,11 @@ int main(int argc,char** argv)
 {
   
   // Graphics?
+<<<<<<< HEAD
   G4bool  useGraphics = true;
+=======
+  G4bool  useGraphics = false;
+>>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
   
   // Turn on/off polarised Compton
   G4bool  usePolarisedCompton = true;
