@@ -314,13 +314,7 @@ void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
       nComptonA = 3;
     }
   }
-  // array B is in negative x direction    
-<<<<<<< HEAD
-  else if(postPos[0] < 0  &&  postPV->GetName() != "Coll_right"
-	  ){ 
-=======
   else if(postPos[0] < 0  &&  postPV->GetName() != "Coll_right"){ 
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
     
     //  first Compton in B
     if     (nComptonB == 0){ 
@@ -366,13 +360,8 @@ void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
       nComptonB = 3; 
     }
   }
-<<<<<<< HEAD
-   else if(postPos[0] < 0  &&  postPV->GetName() == "Coll_right"){ 
-     //G4cout << "CopyNo = " << postPV->GetCopyNo() << G4endl;
-=======
   else if(postPos[0] < 0  &&  postPV->GetName() == "Coll_right"){ 
     
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
     //  first Compton in Collimator
     if     (nComptonColl == 0){ 
       
@@ -416,14 +405,8 @@ void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
 	    trackID == trackID_Coll){
       nComptonColl = 3; 
     }
-<<<<<<< HEAD
-    //G4cout << "nComptColl" << nComptonColl << G4endl;
-  }  
-  
-=======
   }  
 
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
   if(comments){
     G4cout << G4endl;
     G4cout << " particleName = " << particleName << G4endl;
@@ -445,10 +428,5 @@ void Tangle2SteppingAction::UserSteppingAction(const G4Step* step)
   // occuring in each crystal
   Tangle2::nb_Compt[postPV->GetCopyNo()]++;
   //Tangle2::nb_Compt_Coll[postPV->GetCopyNo()]++;
-<<<<<<< HEAD
-  //  G4cout << "nb_Compt_Coll" << Tangle2::nb_Compt[18] << G4endl;
-=======
-  
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
   return;
 }

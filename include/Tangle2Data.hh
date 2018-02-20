@@ -31,13 +31,7 @@ namespace Tangle2 {
   extern G4ThreadLocal G4double eDepCryst[18];
   extern G4ThreadLocal G4double eDepColl1;
   extern G4ThreadLocal G4double eDepColl2;
-<<<<<<< HEAD
   extern G4ThreadLocal G4int nb_Compt[19];
-  //  extern G4ThreadLocal G4int nb_Compt_Coll;
-=======
-  extern G4ThreadLocal G4int nb_Compt[18];
-  extern G4ThreadLocal G4int nb_Compt_Coll;
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
   extern G4ThreadLocal G4ThreeVector posA_1;
   extern G4ThreadLocal G4ThreeVector posB_1;
   extern G4ThreadLocal G4ThreeVector posA_2;

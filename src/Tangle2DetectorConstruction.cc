@@ -18,6 +18,8 @@
 #include "G4NistManager.hh"
 #include "G4Box.hh"
 #include "G4Tubs.hh"
+#include "G4Sphere.hh"
+#include "G4SubtractionSolid.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4RotationMatrix.hh"
@@ -97,8 +99,6 @@ void Tangle2DetectorConstruction::DefineMaterials()
 			1);
   
   lead->AddElement(elPb, 1);
-<<<<<<< HEAD
-
   G4double density_germanium = 5.323*g/cm3;
   germanium = new G4Material("germanium",
 			     density_germanium,
@@ -112,9 +112,6 @@ void Tangle2DetectorConstruction::DefineMaterials()
 			   1);
 
   newnium->AddElement(elNw, 1);
-=======
-  
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
   // Dump the Table of registered materials 
   G4cout << *(G4Material::GetMaterialTable()) << G4endl;
 }
@@ -175,28 +172,36 @@ G4LogicalVolume* logicCryst =
 
  if (horseshoeCrystal) {
   
-  G4double innerRad = cryst_dY;
-  G4double outerRad = 2*cryst_dY;
-  G4double height = cryst_dZ;
-<<<<<<< HEAD
-  G4double startAngle = 15.*deg;
-  G4double endAngle = 330.*deg;
-=======
-  G4double startAngle = 90.*deg;
-  G4double endAngle = 180.*deg;
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
+  G4double innerRad = 0;
+  G4double outerRad = cryst_dZ;
+  G4double height = 2*cryst_dX;
+  G4double startAngle = 0;
+  G4double endAngle = 360.*deg;
 
-  G4Tubs* roundCryst = new G4Tubs("horseshoe",
+  G4Tubs* subCyl = new G4Tubs("cylinder",
 				 innerRad,
-				 outerRad,
+				 cryst_dZ,
 				 height,
 				 startAngle,
 				 endAngle);
+  
+  G4Sphere* sphere = new G4Sphere("sphere",
+				  cryst_dX,
+				  2*cryst_dX,
+				  0, 
+				  360.*deg,
+				  0, 
+				  180.*deg);
+
+  G4SubtractionSolid* roundCryst = new G4SubtractionSolid("horseshoe",
+							  sphere, 
+							  subCyl);
+
   G4LogicalVolume* logicScat = new G4LogicalVolume(roundCryst,
 						   cryst_mat,
 						   "RoundLV");
   G4RotationMatrix* rotm  = new G4RotationMatrix();                                                      
-  rotm->rotateX(90*deg); 
+  rotm->rotateY(90*deg); 
 
 
  G4int nbPos = 2;
@@ -268,11 +273,8 @@ G4LogicalVolume* logicCryst =
 
    G4ThreeVector pos1 = G4ThreeVector(-pos_dX*mm, 0.*mm, 0.*mm);
 
-<<<<<<< HEAD
-   G4Material* coll_mat   = nist->FindOrBuildMaterial("newnium");
-=======
+
    G4Material* coll_mat   = nist->FindOrBuildMaterial("lead");
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
 
 
 
@@ -292,11 +294,7 @@ G4LogicalVolume* logicCryst =
 		     "Coll_right",
 		     logicWorld,
 		     false,
-<<<<<<< HEAD
-		     18,
-=======
 		     19,
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
 		     checkOverlaps);
 
   
