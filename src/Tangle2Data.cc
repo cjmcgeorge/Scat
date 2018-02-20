@@ -19,8 +19,7 @@ G4ThreadLocal G4double Tangle2::eDepColl2 =0.;
 
 //G4ThreadLocal G4double Tangle2::thetaColl = 0;
 
-G4ThreadLocal G4int Tangle2::nb_Compt[18] ={0};
-G4ThreadLocal G4int Tangle2::nb_Compt_Coll = 0;
+G4ThreadLocal G4int Tangle2::nb_Compt[19] ={0};
 G4ThreadLocal G4ThreeVector Tangle2::posA_1 = G4ThreeVector();
 G4ThreadLocal G4ThreeVector Tangle2::posB_1 = G4ThreeVector();
 G4ThreadLocal G4ThreeVector Tangle2::posA_2 = G4ThreeVector();

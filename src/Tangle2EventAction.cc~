@@ -50,7 +50,7 @@ void Tangle2EventAction::BeginOfEventAction(const G4Event*)
   Tangle2::eDepColl1 = 0;
   Tangle2::eDepColl2 = 0;
 
-  for (G4int i = 0; i<19; i++)
+  for (G4int i = 0; i<18; i++)
     Tangle2::nb_Compt[i] = 0.;
   //    Tangle2::nb_Compt_Coll = 0.;
   Tangle2::posA_1 = G4ThreeVector(-99.,-99.,-99.);
@@ -95,7 +95,8 @@ void Tangle2EventAction::EndOfEventAction(const G4Event*)
     }
   }
 
-  //  G4cout << "nb_Compt_Coll = " << Tangle2::nb_Compt[18] << G4endl;
+  G4cout << "nb_Compt_Coll = " << Tangle2::nb_Compt[18] << G4endl;
+  
   // Output to the root file 
   // 4 and 13 are the central crystals
   if ((Tangle2::eDepCryst[4]  > eThres) && 
@@ -103,7 +104,7 @@ void Tangle2EventAction::EndOfEventAction(const G4Event*)
             (Tangle2::thetaA !=0)             &&
       (Tangle2::thetaB !=0)
       ){
-    G4cout << "Conditional Satisfied!" << G4endl;
+    // G4cout << "Conditional Satisfied!" << G4endl;
     
     G4AnalysisManager* man = G4AnalysisManager::Instance();
 
@@ -153,6 +154,7 @@ void Tangle2EventAction::EndOfEventAction(const G4Event*)
     //print number of compton scatters in the collimator 
    
     man->FillNtupleIColumn(62, Tangle2::nb_Compt[18]);
+    
     
     man->AddNtupleRow();
   }

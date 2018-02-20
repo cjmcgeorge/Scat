@@ -9,19 +9,11 @@
 #/run/beamOn 200000
 
 # 2 Million
-<<<<<<< HEAD
 /run/beamOn 2000000
-=======
-#/run/beamOn 2000000
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
 
 # 200 Million
 #/run/beamOn 200000000
 
 # 2 Billion
-<<<<<<< HEAD
 #/run/beamOn 2000000000
-=======
-/run/beamOn 2000000000
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
 

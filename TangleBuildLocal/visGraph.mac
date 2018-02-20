@@ -8,11 +8,7 @@
 
 /control/execute pretty.mac
 
-<<<<<<< HEAD
 #/run/beamOn 5
-=======
-/run/beamOn 5
->>>>>>> 580cb54d55a088dff9aa2da036c9dbb45f28f9f7
 
 #/run/beamOn 500
 
