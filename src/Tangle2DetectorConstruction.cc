@@ -193,9 +193,13 @@ G4LogicalVolume* logicCryst =
 				  0, 
 				  180.*deg);
 
+  G4ThreeVector offset = G4ThreeVector(0, 0 , (-1)*cryst_dX);
+  
   G4SubtractionSolid* roundCryst = new G4SubtractionSolid("horseshoe",
 							  sphere, 
-							  subCyl);
+							  subCyl,
+							  0,
+							  offset);
 
   G4LogicalVolume* logicScat = new G4LogicalVolume(roundCryst,
 						   cryst_mat,
@@ -226,6 +230,35 @@ G4LogicalVolume* logicCryst =
 		    false,
 		    13,
 		    checkOverlaps);				 
+
+  //Cuboid scatterer (collimator)
+
+   G4ThreeVector pos1 = G4ThreeVector(-pos_dX*mm, 0.*mm, 0.*mm);
+
+
+   G4Material* coll_mat   = nist->FindOrBuildMaterial("lead");
+
+
+
+  G4Box* outer = new G4Box("Outer",
+			    0.5*mm,
+			    0.5*mm,
+			    0.5*mm);
+
+
+   G4LogicalVolume* logicColl = new G4LogicalVolume(outer,
+						    coll_mat,
+						    "Coll_LV");
+
+   new G4PVPlacement(0,
+		     pos1,
+		     logicCryst,
+		     "Coll_right",
+		     logicWorld,
+		     false,
+		     19,
+		     checkOverlaps);
+
 
 
 
@@ -268,35 +301,6 @@ G4LogicalVolume* logicCryst =
 		      checkOverlaps);          
   }
  }
-
-  //Cuboid scatterer (collimator)
-
-   G4ThreeVector pos1 = G4ThreeVector(-pos_dX*mm, 0.*mm, 0.*mm);
-
-
-   G4Material* coll_mat   = nist->FindOrBuildMaterial("lead");
-
-
-
-  G4Box* outer = new G4Box("Outer",
-			    0.5*mm,
-			    0.5*mm,
-			    0.5*mm);
-
-
-   G4LogicalVolume* logicColl = new G4LogicalVolume(outer,
-						    coll_mat,
-						    "Coll_LV");
-
-   new G4PVPlacement(0,
-		     pos1,
-		     logicColl,
-		     "Coll_right",
-		     logicWorld,
-		     false,
-		     19,
-		     checkOverlaps);
-
   
 
   //scattering disc

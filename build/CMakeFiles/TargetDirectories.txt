@@ -1,2 +1,0 @@
-/scratch2/Chloe/Scat/build/CMakeFiles/tangle2.dir
-/scratch2/Chloe/Scat/build/CMakeFiles/tangle2_exec.dir
